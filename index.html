@@ -18,6 +18,7 @@
       --header-footer-bg: rgba(255, 255, 255, 0.8);
       --toggle-bg: #f3f4f6;
       --toggle-active: #3b82f6;
+      --window-controls-bg: #f6f6f6;
     }
 
     [data-theme="dark"] {
@@ -31,6 +32,7 @@
       --header-footer-bg: rgba(26, 26, 26, 0.8);
       --toggle-bg: #374151;
       --toggle-active: #60a5fa;
+      --window-controls-bg: #2a2a2a;
     }
 
     * {
@@ -107,6 +109,66 @@
       justify-content: center;
       padding: 2rem;
       min-height: calc(100vh - 140px);
+      position: relative;
+    }
+
+    /* Window Controls */
+    .window-controls {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .control-button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .control-button:hover {
+      transform: scale(1.1);
+    }
+
+    .close-btn {
+      background: #ff5f57;
+    }
+
+    .minimize-btn {
+      background: #ffbd2e;
+    }
+
+    .expand-btn {
+      background: #28ca42;
+    }
+
+    .control-button:hover::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 1px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .close-btn:hover::after {
+      width: 6px;
+      height: 6px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6'%3E%3Cpath d='M1 1l4 4M5 1L1 5' stroke='%23000' stroke-width='1' stroke-opacity='0.6'/%3E%3C/svg%3E");
+    }
+
+    .expand-btn:hover::after {
+      width: 6px;
+      height: 6px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 6'%3E%3Cpath d='M1 1h4v4H1z' fill='none' stroke='%23000' stroke-width='1' stroke-opacity='0.6'/%3E%3C/svg%3E");
     }
 
     .profile-card {
@@ -118,16 +180,85 @@
       box-shadow: var(--shadow);
       max-width: 400px;
       width: 100%;
-      transition: all 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      transform-origin: center center;
     }
 
-    .profile-card:hover {
+    .profile-card.minimizing {
+      animation: minimizeCard 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .profile-card.expanding {
+      animation: expandCard 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .profile-card:hover:not(.minimizing):not(.expanding) {
       transform: translateY(-4px);
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
-    [data-theme="dark"] .profile-card:hover {
+    [data-theme="dark"] .profile-card:hover:not(.minimizing):not(.expanding) {
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Minimized Menu Bar */
+    .minimized-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--window-controls-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      padding: 8px 16px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .minimized-bar.show {
+      display: flex;
+    }
+
+    .minimized-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .minimized-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .expand-button {
+      background: var(--toggle-active);
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .expand-button:hover {
+      transform: scale(1.1);
+    }
+
+    .expand-button svg {
+      width: 12px;
+      height: 12px;
+      color: white;
     }
 
     /* Avatar with rotating border */
@@ -176,6 +307,101 @@
       100% {
         background-position: 0% 50%;
         transform: rotate(360deg);
+      }
+    }
+
+    @keyframes minimizeCard {
+      0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(0.8) translateY(-20px) rotateX(15deg);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(0.1) translateY(200px) rotateX(90deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes expandCard {
+      0% {
+        transform: scale(0.1) translateY(200px) rotateX(90deg);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(0.8) translateY(-20px) rotateX(15deg);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1) translateY(0) rotateX(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateX(-50%) translateY(100px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Letter animation */
+    .letter-animation {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 40px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .letter-animation::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-top: 20px solid #ddd;
+    }
+
+    .letter-animation.sending {
+      animation: sendLetter 0.8s ease-out forwards;
+    }
+
+    @keyframes sendLetter {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+
+      50% {
+        transform: translate(-50%, -70%) scale(0.8) rotate(10deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -200%) scale(0.3) rotate(45deg);
       }
     }
 
@@ -292,6 +518,11 @@
       footer {
         padding: 1rem;
       }
+
+      .window-controls {
+        top: 12px;
+        left: 12px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -327,8 +558,12 @@
       }
     }
 
-    .profile-card {
+    .profile-card:not(.minimizing):not(.expanding) {
       animation: fadeIn 0.6s ease-out;
+    }
+
+    .hidden {
+      display: none !important;
     }
   </style>
 </head>
@@ -350,9 +585,15 @@
   </header>
 
   <main>
-    <div class="profile-card">
+    <div class="profile-card" id="profileCard">
+      <div class="window-controls">
+        <button class="control-button close-btn" id="closeBtn" aria-label="Close"></button>
+        <button class="control-button minimize-btn" id="minimizeBtn" aria-label="Minimize"></button>
+        <button class="control-button expand-btn" id="expandBtn" aria-label="Expand"></button>
+      </div>
+
       <div class="avatar-container">
-        <img src="https://i.ibb.co/Fbq0C0GC/abhnavkm.jpg" alt="Abhinav KM" class="avatar">
+        <img src="https://i.ibb.co/Fbq0C0GC/abhnavkm.jpg" alt="Abhinav KM" class="avatar" id="avatarImg">
       </div>
       <h1 class="name">Abhinav KM</h1>
       <p class="organization">Senior Software Engineer</p>
@@ -373,6 +614,20 @@
         </a>
       </div>
     </div>
+
+    <!-- Minimized Bar -->
+    <div class="minimized-bar" id="minimizedBar">
+      <img src="https://i.ibb.co/Fbq0C0GC/abhnavkm.jpg" alt="Abhinav KM" class="minimized-avatar">
+      <span class="minimized-name">Abhinav KM</span>
+      <button class="expand-button" id="expandFromBar" aria-label="Expand">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 13l3 3 7-7" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Letter Animation -->
+    <div class="letter-animation" id="letterAnimation"></div>
   </main>
 
   <footer>
@@ -385,6 +640,15 @@
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
     const body = document.body;
+    // Window controls
+    const profileCard = document.getElementById('profileCard');
+    const minimizeBtn = document.getElementById('minimizeBtn');
+    const expandBtn = document.getElementById('expandBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const minimizedBar = document.getElementById('minimizedBar');
+    const expandFromBar = document.getElementById('expandFromBar');
+    const letterAnimation = document.getElementById('letterAnimation');
+    let isMinimized = false;
     // Check for saved theme preference or default to light mode
     const currentTheme = localStorage.getItem('theme') || 'light';
     body.setAttribute('data-theme', currentTheme);
@@ -406,6 +670,52 @@
         moonIcon.style.display = 'none';
       }
     }
+    // Window control functions
+    function minimizeCard() {
+      if (isMinimized) return;
+      isMinimized = true;
+      profileCard.classList.add('minimizing');
+      // Show letter animation
+      letterAnimation.classList.add('sending');
+      setTimeout(() => {
+        profileCard.classList.add('hidden');
+        minimizedBar.classList.add('show');
+        letterAnimation.classList.remove('sending');
+      }, 600);
+    }
+
+    function expandCard() {
+      if (!isMinimized) return;
+      isMinimized = false;
+      minimizedBar.classList.remove('show');
+      profileCard.classList.remove('hidden');
+      profileCard.classList.remove('minimizing');
+      profileCard.classList.add('expanding');
+      setTimeout(() => {
+        profileCard.classList.remove('expanding');
+      }, 600);
+    }
+
+    function closeCard() {
+      profileCard.style.opacity = '0';
+      profileCard.style.transform = 'scale(0.8)';
+      setTimeout(() => {
+        profileCard.style.display = 'none';
+      }, 300);
+    }
+    // Event listeners
+    minimizeBtn.addEventListener('click', minimizeCard);
+    expandBtn.addEventListener('click', expandCard);
+    expandFromBar.addEventListener('click', expandCard);
+    closeBtn.addEventListener('click', closeCard);
+    // Double click to minimize/expand
+    profileCard.addEventListener('dblclick', () => {
+      if (isMinimized) {
+        expandCard();
+      } else {
+        minimizeCard();
+      }
+    });
     // Add smooth scrolling for better UX
     document.documentElement.style.scrollBehavior = 'smooth';
     // Add keyboard navigation for accessibility
@@ -413,6 +723,25 @@
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         themeToggle.click();
+      }
+    });
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey) {
+        switch (e.key) {
+          case 'm':
+            e.preventDefault();
+            minimizeCard();
+            break;
+          case 'e':
+            e.preventDefault();
+            expandCard();
+            break;
+          case 'w':
+            e.preventDefault();
+            closeCard();
+            break;
+        }
       }
     });
     // Add focus management for better accessibility
