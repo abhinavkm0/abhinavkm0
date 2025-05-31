@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abhinav KM - Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --card-bg: #ffffff;
+      --text-primary: #1a1a1a;
+      --text-secondary: #666666;
+      --border-color: #e5e5e5;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --avatar-border: #e5e5e5;
+      --header-footer-bg: rgba(255, 255, 255, 0.8);
+      --toggle-bg: #f3f4f6;
+      --toggle-active: #3b82f6;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #0f0f0f;
+      --card-bg: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #a3a3a3;
+      --border-color: #333333;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --avatar-border: #333333;
+      --header-footer-bg: rgba(26, 26, 26, 0.8);
+      --toggle-bg: #374151;
+      --toggle-active: #60a5fa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--header-footer-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      background: var(--toggle-bg);
+      border: none;
+      border-radius: 50px;
+      padding: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--toggle-active);
+      color: white;
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      min-height: calc(100vh - 140px);
+    }
+
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      max-width: 400px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    [data-theme="dark"] .profile-card:hover {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Avatar with rotating border */
+    .avatar-container {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .avatar-container::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981, #f59e0b, #ef4444);
+      background-size: 300% 300%;
+      animation: rotate-border 3s linear infinite;
+      z-index: -1;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--card-bg);
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes rotate-border {
+      0% {
+        background-position: 0% 50%;
+        transform: rotate(0deg);
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+        transform: rotate(360deg);
+      }
+    }
+
+    .name {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .organization {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+
+    .company {
+      font-size: 1.0rem;
+      margin-bottom: 0.75rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    .company-link {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .company-link:hover {
+      color: #3b82f6;
+      font-weight: 500;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: var(--toggle-bg);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--toggle-active);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .social-link svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Footer */
+    footer {
+      position: sticky;
+      bottom: 0;
+      background: var(--header-footer-bg);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+      }
+
+      main {
+        padding: 1rem;
+        min-height: calc(100vh - 120px);
+      }
+
+      .profile-card {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+      }
+
+      .name {
+        font-size: 1.75rem;
+      }
+
+      .organization {
+        font-size: 1rem;
+      }
+
+      .avatar-container {
+        width: 100px;
+        height: 100px;
+      }
+
+      .avatar {
+        width: 100px;
+        height: 100px;
+      }
+
+      footer {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-card {
+        padding: 1.5rem 1rem;
+        margin: 0.5rem;
+      }
+
+      .name {
+        font-size: 1.5rem;
+      }
+
+      .social-links {
+        gap: 0.75rem;
+      }
+
+      .social-link {
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-card {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">🥷</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="profile-card">
+      <div class="avatar-container">
+        <img src="https://i.ibb.co/Fbq0C0GC/abhnavkm.jpg" alt="Abhinav KM" class="avatar">
+      </div>
+      <h1 class="name">Abhinav KM</h1>
+      <p class="organization">Senior Software Engineer</p>
+      <p class="company">@<a href="https://www.thoughtminds.io/" target="_blank" rel="noopener noreferrer" class="company-link">ThoughtMinds</a></p>
+      <div class="social-links">
+        <a href="https://linkedin.com/in/abhinav--km" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect width="4" height="12" x="2" y="9" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+        </a>
+        <a href="https://github.com/abhinavkm0" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+            <path d="M9 18c-4.51 2-5-2-7-2" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Copyright Abhinav KM</p>
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    const body = document.body;
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      }
+    }
+    // Add smooth scrolling for better UX
+    document.documentElement.style.scrollBehavior = 'smooth';
+    // Add keyboard navigation for accessibility
+    themeToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        themeToggle.click();
+      }
+    });
+    // Add focus management for better accessibility
+    document.addEventListener('DOMContentLoaded', () => {
+      const focusableElements = document.querySelectorAll('button, a[href]');
+      focusableElements.forEach(element => {
+        element.addEventListener('focus', () => {
+          element.style.outline = '2px solid var(--toggle-active)';
+          element.style.outlineOffset = '2px';
+        });
+        element.addEventListener('blur', () => {
+          element.style.outline = 'none';
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
