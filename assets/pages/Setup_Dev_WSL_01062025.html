@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setting up dev environment in WSL - Abhinav KM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+  
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="../css/styles.css">
+  
+  <!-- Blog-specific Styles -->
+  <link rel="stylesheet" href="../css/blog.css">
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">🥷</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="blog-container">
+      <a href="index.html" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Profile
+      </a>
+
+      <article>
+        <header class="blog-header">
+          <h1 class="blog-title">Setting up dev environment in WSL</h1>
+          <div class="blog-meta">
+            <span>📅 January 1, 2025</span>
+            <span>⏱️ 8 min read</span>
+            <span>👤 Abhinav KM</span>
+          </div>
+          <p class="blog-description">
+            Complete guide to setting up a modern development environment using Windows Subsystem for Linux
+          </p>
+        </header>
+
+        <div class="blog-content">
+          <p>
+            Windows Subsystem for Linux (WSL) has revolutionized development on Windows machines. It provides a seamless Linux experience without the overhead of traditional virtual machines. In this comprehensive guide, we'll walk through setting up a complete development environment that rivals any native Linux setup.
+          </p>
+
+          <h2>Why WSL for Development?</h2>
+          <p>
+            WSL bridges the gap between Windows and Linux, offering developers the best of both worlds. You get access to powerful Windows applications while enjoying the flexibility and tools of a Linux environment. This is particularly valuable for web development, where many deployment targets are Linux-based.
+          </p>
+
+          <blockquote>
+            "WSL has completely transformed my development workflow. I can now use Linux tools natively while still having access to my favorite Windows applications." - A satisfied developer
+          </blockquote>
+
+          <h2>Prerequisites</h2>
+          <p>Before we begin, ensure you have:</p>
+          <ul>
+            <li>Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11</li>
+            <li>Administrator privileges on your machine</li>
+            <li>At least 4GB of free disk space</li>
+            <li>A stable internet connection for downloads</li>
+          </ul>
+
+          <h2>Step 1: Enable WSL</h2>
+          <p>
+            First, we need to enable the Windows Subsystem for Linux feature. Open PowerShell as Administrator and run:
+          </p>
+          <pre><code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code></pre>
+
+          <h3>Enable Virtual Machine Platform</h3>
+          <p>For WSL 2, we also need to enable the Virtual Machine Platform:</p>
+          <pre><code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></pre>
+
+          <h2>Step 2: Install Ubuntu</h2>
+          <p>
+            Ubuntu is one of the most popular Linux distributions and works excellently with WSL. You can install it directly from the Microsoft Store or use the command line:
+          </p>
+          <pre><code>wsl --install -d Ubuntu</code></pre>
+
+          <p>
+            After installation, launch Ubuntu from the Start menu. You'll be prompted to create a username and password for your Linux environment.
+          </p>
+
+          <h2>Step 3: Update Your System</h2>
+          <p>Once Ubuntu is running, update the package lists and upgrade existing packages:</p>
+          <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+
+          <h2>Step 4: Install Essential Development Tools</h2>
+          
+          <h3>Git Configuration</h3>
+          <p>Git is essential for version control. Configure it with your details:</p>
+          <pre><code>git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"</code></pre>
+
+          <h3>Node.js and npm</h3>
+          <p>For JavaScript development, install Node.js using Node Version Manager (nvm):</p>
+          <pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+nvm use --lts</code></pre>
+
+          <h3>Python Development</h3>
+          <p>Install Python and pip for Python development:</p>
+          <pre><code>sudo apt install python3 python3-pip python3-venv -y</code></pre>
+
+          <h2>Step 5: Configure Your Shell</h2>
+          <p>
+            Enhance your terminal experience with Zsh and Oh My Zsh for better productivity:
+          </p>
+          <pre><code>sudo apt install zsh -y
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</code></pre>
+
+          <h2>Step 6: Install VS Code Integration</h2>
+          <p>
+            Visual Studio Code has excellent WSL integration. Install the Remote-WSL extension to edit files directly in your WSL environment from VS Code running on Windows.
+          </p>
+
+          <h3>Opening Projects in VS Code</h3>
+          <p>From your WSL terminal, you can open any directory in VS Code:</p>
+          <pre><code>code .</code></pre>
+
+          <h2>Best Practices and Tips</h2>
+          <ul>
+            <li>Store your projects in the Linux filesystem (<code>/home/username/</code>) for better performance</li>
+            <li>Use Windows Terminal for a better terminal experience</li>
+            <li>Set up SSH keys for seamless Git operations</li>
+            <li>Consider using Docker Desktop with WSL 2 backend for containerized development</li>
+            <li>Regularly backup your WSL environment using <code>wsl --export</code></li>
+          </ul>
+
+          <h2>Troubleshooting Common Issues</h2>
+          
+          <h3>WSL 2 Not Starting</h3>
+          <p>If WSL 2 fails to start, ensure virtualization is enabled in your BIOS and that Hyper-V is properly configured.</p>
+
+          <h3>Slow File Performance</h3>
+          <p>Always work within the Linux filesystem for optimal performance. Avoid accessing Windows files from WSL when possible.</p>
+
+          <h2>Conclusion</h2>
+          <p>
+            Setting up a development environment in WSL provides a powerful, flexible platform for modern software development. With this setup, you'll have access to the vast ecosystem of Linux tools while maintaining the familiarity of Windows.
+          </p>
+
+          <p>
+            The combination of WSL, VS Code, and modern development tools creates an environment that's both productive and enjoyable to work in. Whether you're developing web applications, working with containers, or building cloud-native solutions, this setup will serve you well.
+          </p>
+
+          <div class="blog-tags">
+            <span class="tag">WSL</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Development</span>
+            <span class="tag">Windows</span>
+            <span class="tag">Ubuntu</span>
+            <span class="tag">VS Code</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <p>Copyright Abhinav KM</p>
+  </footer>
+
+  <!-- Shared Scripts -->
+  <script src="../js/script.js"></script>
+</body>
+
+</html>
