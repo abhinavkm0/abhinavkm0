@@ -1,16 +1,19 @@
-## Hi there 👋
+```man
+ABHINAV(1)                   GitHub User Manuals                  ABHINAV(1)
 
-<!--
-**abhinavkm0/abhinavkm0** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+NAME
+       Abhinav KM - AL/ML Engineer | Open Source Contributor
 
-Here are some ideas to get you started:
+SYNOPSIS
+       abhinav [--code] [--design] [--collaborate] [--learn]
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+DESCRIPTION
+       AI/ML developer who enjoys building scalable 
+       applications and contributing to open source.
+
+SEE ALSO
+       * GitHub:       https://github.com/abhinavkm0
+       * LinkedIn:     https://linkedin.com/in/abhinav--km
+
+ABHINAV(1)                     May 2025                      ABHINAV(1)
+```
