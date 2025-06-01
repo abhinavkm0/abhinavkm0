@@ -1,0 +1,313 @@
+/* ===== PROFILE PAGE SPECIFIC STYLES ===== */
+
+/* Profile Card */
+.profile-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  max-width: 400px;
+  width: 100%;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  transform-origin: center center;
+}
+
+.profile-card.minimizing {
+  animation: minimizeCard 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.profile-card.expanding {
+  animation: expandCard 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.profile-card:hover:not(.minimizing):not(.expanding) {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .profile-card:hover:not(.minimizing):not(.expanding) {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card:not(.minimizing):not(.expanding) {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Avatar Styles */
+.avatar-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.5rem;
+}
+
+.avatar-container::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981, #f59e0b, #ef4444);
+  background-size: 300% 300%;
+  animation: rotate-border 3s linear infinite;
+  z-index: -1;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--card-bg);
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Profile Text */
+.name {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.organization {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.company {
+  font-size: 1.0rem;
+  margin-bottom: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.company-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.company-link:hover {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+/* Minimized Bar */
+.minimized-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--window-controls-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  padding: 8px 16px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+.minimized-bar.show {
+  display: flex;
+}
+
+.minimized-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.minimized-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.expand-button {
+  background: var(--toggle-active);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.expand-button:hover {
+  transform: scale(1.1);
+}
+
+.expand-button svg {
+  width: 12px;
+  height: 12px;
+  color: white;
+}
+
+/* Letter Animation */
+.letter-animation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 40px;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.letter-animation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 20px solid #ddd;
+}
+
+.letter-animation.sending {
+  animation: sendLetter 0.8s ease-out forwards;
+}
+
+/* Animations */
+@keyframes rotate-border {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes minimizeCard {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.8) translateY(-20px) rotateX(15deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.1) translateY(200px) rotateX(90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes expandCard {
+  0% {
+    transform: scale(0.1) translateY(200px) rotateX(90deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.8) translateY(-20px) rotateX(15deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sendLetter {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-50%, -70%) scale(0.8) rotate(10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -200%) scale(0.3) rotate(45deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Profile-specific Responsive Design */
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+
+  .name {
+    font-size: 1.75rem;
+  }
+
+  .organization {
+    font-size: 1rem;
+  }
+
+  .avatar-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+  }
+
+  .name {
+    font-size: 1.5rem;
+  }
+}
