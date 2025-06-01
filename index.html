@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abhinav KM - Profile</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+  
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  
+  <!-- Page-specific Styles -->
+  <link rel="stylesheet" href="./assets/css/profile.css">
   <style>
     :root {
       --bg-color: #ffffff;
@@ -299,11 +305,9 @@
         background-position: 0% 50%;
         transform: rotate(0deg);
       }
-
       50% {
         background-position: 100% 50%;
       }
-
       100% {
         background-position: 0% 50%;
         transform: rotate(360deg);
@@ -315,12 +319,10 @@
         transform: scale(1) translateY(0);
         opacity: 1;
       }
-
       50% {
         transform: scale(0.8) translateY(-20px) rotateX(15deg);
         opacity: 0.8;
       }
-
       100% {
         transform: scale(0.1) translateY(200px) rotateX(90deg);
         opacity: 0;
@@ -332,12 +334,10 @@
         transform: scale(0.1) translateY(200px) rotateX(90deg);
         opacity: 0;
       }
-
       50% {
         transform: scale(0.8) translateY(-20px) rotateX(15deg);
         opacity: 0.8;
       }
-
       100% {
         transform: scale(1) translateY(0) rotateX(0deg);
         opacity: 1;
@@ -349,7 +349,6 @@
         transform: translateX(-50%) translateY(100px);
         opacity: 0;
       }
-
       to {
         transform: translateX(-50%) translateY(0);
         opacity: 1;
@@ -394,11 +393,9 @@
         opacity: 1;
         transform: translate(-50%, -50%) scale(1) rotate(0deg);
       }
-
       50% {
         transform: translate(-50%, -70%) scale(0.8) rotate(10deg);
       }
-
       100% {
         opacity: 0;
         transform: translate(-50%, -200%) scale(0.3) rotate(45deg);
@@ -591,7 +588,7 @@
         <button class="control-button minimize-btn" id="minimizeBtn" aria-label="Minimize"></button>
         <button class="control-button expand-btn" id="expandBtn" aria-label="Expand"></button>
       </div>
-
+      
       <div class="avatar-container">
         <img src="https://i.ibb.co/Fbq0C0GC/abhnavkm.jpg" alt="Abhinav KM" class="avatar" id="avatarImg">
       </div>
@@ -621,7 +618,7 @@
       <span class="minimized-name">Abhinav KM</span>
       <button class="expand-button" id="expandFromBar" aria-label="Expand">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 13l3 3 7-7" />
+          <path d="M7 13l3 3 7-7"/>
         </svg>
       </button>
     </div>
@@ -634,130 +631,11 @@
     <p>Copyright Abhinav KM</p>
   </footer>
 
-  <script>
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('themeToggle');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    const body = document.body;
-    // Window controls
-    const profileCard = document.getElementById('profileCard');
-    const minimizeBtn = document.getElementById('minimizeBtn');
-    const expandBtn = document.getElementById('expandBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    const minimizedBar = document.getElementById('minimizedBar');
-    const expandFromBar = document.getElementById('expandFromBar');
-    const letterAnimation = document.getElementById('letterAnimation');
-    let isMinimized = false;
-    // Check for saved theme preference or default to light mode
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    body.setAttribute('data-theme', currentTheme);
-    updateThemeIcon(currentTheme);
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = body.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      body.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateThemeIcon(newTheme);
-    });
-
-    function updateThemeIcon(theme) {
-      if (theme === 'dark') {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-      } else {
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
-      }
-    }
-    // Window control functions
-    function minimizeCard() {
-      if (isMinimized) return;
-      isMinimized = true;
-      profileCard.classList.add('minimizing');
-      // Show letter animation
-      letterAnimation.classList.add('sending');
-      setTimeout(() => {
-        profileCard.classList.add('hidden');
-        minimizedBar.classList.add('show');
-        letterAnimation.classList.remove('sending');
-      }, 600);
-    }
-
-    function expandCard() {
-      if (!isMinimized) return;
-      isMinimized = false;
-      minimizedBar.classList.remove('show');
-      profileCard.classList.remove('hidden');
-      profileCard.classList.remove('minimizing');
-      profileCard.classList.add('expanding');
-      setTimeout(() => {
-        profileCard.classList.remove('expanding');
-      }, 600);
-    }
-
-    function closeCard() {
-      profileCard.style.opacity = '0';
-      profileCard.style.transform = 'scale(0.8)';
-      setTimeout(() => {
-        profileCard.style.display = 'none';
-      }, 300);
-    }
-    // Event listeners
-    minimizeBtn.addEventListener('click', minimizeCard);
-    expandBtn.addEventListener('click', expandCard);
-    expandFromBar.addEventListener('click', expandCard);
-    closeBtn.addEventListener('click', closeCard);
-    // Double click to minimize/expand
-    profileCard.addEventListener('dblclick', () => {
-      if (isMinimized) {
-        expandCard();
-      } else {
-        minimizeCard();
-      }
-    });
-    // Add smooth scrolling for better UX
-    document.documentElement.style.scrollBehavior = 'smooth';
-    // Add keyboard navigation for accessibility
-    themeToggle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        themeToggle.click();
-      }
-    });
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.metaKey || e.ctrlKey) {
-        switch (e.key) {
-          case 'm':
-            e.preventDefault();
-            minimizeCard();
-            break;
-          case 'e':
-            e.preventDefault();
-            expandCard();
-            break;
-          case 'w':
-            e.preventDefault();
-            closeCard();
-            break;
-        }
-      }
-    });
-    // Add focus management for better accessibility
-    document.addEventListener('DOMContentLoaded', () => {
-      const focusableElements = document.querySelectorAll('button, a[href]');
-      focusableElements.forEach(element => {
-        element.addEventListener('focus', () => {
-          element.style.outline = '2px solid var(--toggle-active)';
-          element.style.outlineOffset = '2px';
-        });
-        element.addEventListener('blur', () => {
-          element.style.outline = 'none';
-        });
-      });
-    });
-  </script>
+  <!-- Shared Scripts -->
+  <script src="./assets/js/script.js"></script>
+  
+  <!-- Page-specific Scripts -->
+  <script src="./assets/js/profile.js"></script>
 </body>
 
 </html>
