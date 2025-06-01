@@ -32,7 +32,7 @@
 
   <main>
     <div class="blog-container">
-      <a href="index.html" class="back-link">
+      <a href="../../" class="back-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
@@ -41,131 +41,90 @@
 
       <article>
         <header class="blog-header">
-          <h1 class="blog-title">Setting up dev environment in WSL</h1>
+          <h1 class="blog-title">Environment Setup</h1>
           <div class="blog-meta">
             <span>📅 January 1, 2025</span>
-            <span>⏱️ 8 min read</span>
+            <span>⏱️ 5 min read</span>
             <span>👤 Abhinav KM</span>
           </div>
           <p class="blog-description">
-            Complete guide to setting up a modern development environment using Windows Subsystem for Linux
+            Complete guide to setting up a development environment using WSL, Docker, and Python tools
           </p>
         </header>
 
         <div class="blog-content">
           <p>
-            Windows Subsystem for Linux (WSL) has revolutionized development on Windows machines. It provides a seamless Linux experience without the overhead of traditional virtual machines. In this comprehensive guide, we'll walk through setting up a complete development environment that rivals any native Linux setup.
+            We will be working inside WSL for our development environment. This setup provides a robust Linux environment on Windows with all the tools we need for modern development.
           </p>
 
-          <h2>Why WSL for Development?</h2>
-          <p>
-            WSL bridges the gap between Windows and Linux, offering developers the best of both worlds. You get access to powerful Windows applications while enjoying the flexibility and tools of a Linux environment. This is particularly valuable for web development, where many deployment targets are Linux-based.
-          </p>
+          <p>First, install WSL:</p>
+          <pre><code>wsl --install</code></pre>
 
-          <blockquote>
-            "WSL has completely transformed my development workflow. I can now use Linux tools natively while still having access to my favorite Windows applications." - A satisfied developer
-          </blockquote>
-
-          <h2>Prerequisites</h2>
-          <p>Before we begin, ensure you have:</p>
-          <ul>
-            <li>Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11</li>
-            <li>Administrator privileges on your machine</li>
-            <li>At least 4GB of free disk space</li>
-            <li>A stable internet connection for downloads</li>
-          </ul>
-
-          <h2>Step 1: Enable WSL</h2>
-          <p>
-            First, we need to enable the Windows Subsystem for Linux feature. Open PowerShell as Administrator and run:
-          </p>
-          <pre><code>dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</code></pre>
-
-          <h3>Enable Virtual Machine Platform</h3>
-          <p>For WSL 2, we also need to enable the Virtual Machine Platform:</p>
-          <pre><code>dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</code></pre>
-
-          <h2>Step 2: Install Ubuntu</h2>
-          <p>
-            Ubuntu is one of the most popular Linux distributions and works excellently with WSL. You can install it directly from the Microsoft Store or use the command line:
-          </p>
+          <p>Install the Ubuntu distro:</p>
           <pre><code>wsl --install -d Ubuntu</code></pre>
 
-          <p>
-            After installation, launch Ubuntu from the Start menu. You'll be prompted to create a username and password for your Linux environment.
-          </p>
+          <p>Set the default version to WSL2:</p>
+          <pre><code>wsl --set-default-version 2</code></pre>
 
-          <h2>Step 3: Update Your System</h2>
-          <p>Once Ubuntu is running, update the package lists and upgrade existing packages:</p>
-          <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
-
-          <h2>Step 4: Install Essential Development Tools</h2>
+          <h2>WSL2</h2>
+          <p>Now you can enter WSL to open a shell:</p>
           
-          <h3>Git Configuration</h3>
-          <p>Git is essential for version control. Configure it with your details:</p>
-          <pre><code>git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"</code></pre>
+          <img src="../images/wsl2_shell.png" alt="WSL2 Shell" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
 
-          <h3>Node.js and npm</h3>
-          <p>For JavaScript development, install Node.js using Node Version Manager (nvm):</p>
-          <pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-nvm use --lts</code></pre>
+          <h2>Docker Desktop</h2>
+          <p>Download and install <a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer" style="color: var(--toggle-active); text-decoration: none;">Docker Desktop</a></p>
 
-          <h3>Python Development</h3>
-          <p>Install Python and pip for Python development:</p>
-          <pre><code>sudo apt install python3 python3-pip python3-venv -y</code></pre>
+          <p>Now, enable WSL2 integration:</p>
+          <img src="../images/docker_wsl2.png" alt="Docker WSL2 Integration" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
 
-          <h2>Step 5: Configure Your Shell</h2>
-          <p>
-            Enhance your terminal experience with Zsh and Oh My Zsh for better productivity:
-          </p>
-          <pre><code>sudo apt install zsh -y
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</code></pre>
+          <h2>Create SSH Key</h2>
+          <p>Create an SSH Key:</p>
+          <pre><code>ssh-keygen -t rsa -b 4096 -C "email@thoughtminds.io"</code></pre>
 
-          <h2>Step 6: Install VS Code Integration</h2>
-          <p>
-            Visual Studio Code has excellent WSL integration. Install the Remote-WSL extension to edit files directly in your WSL environment from VS Code running on Windows.
-          </p>
+          <p>Add to identity:</p>
+          <pre><code>ssh-add ~/.ssh/file_name</code></pre>
 
-          <h3>Opening Projects in VS Code</h3>
-          <p>From your WSL terminal, you can open any directory in VS Code:</p>
-          <pre><code>code .</code></pre>
+          <p>Now copy contents of the <code>.pub</code> file to GitHub SSH Keys:</p>
+          <img src="../images/ssh_key.png" alt="SSH Key Setup" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
 
-          <h2>Best Practices and Tips</h2>
-          <ul>
-            <li>Store your projects in the Linux filesystem (<code>/home/username/</code>) for better performance</li>
-            <li>Use Windows Terminal for a better terminal experience</li>
-            <li>Set up SSH keys for seamless Git operations</li>
-            <li>Consider using Docker Desktop with WSL 2 backend for containerized development</li>
-            <li>Regularly backup your WSL environment using <code>wsl --export</code></li>
-          </ul>
+          <h2>Install pyenv</h2>
+          <pre><code>curl -fsSL https://pyenv.run | bash</code></pre>
 
-          <h2>Troubleshooting Common Issues</h2>
-          
-          <h3>WSL 2 Not Starting</h3>
-          <p>If WSL 2 fails to start, ensure virtualization is enabled in your BIOS and that Hyper-V is properly configured.</p>
+          <p>Refer <a href="https://github.com/pyenv/pyenv?tab=readme-ov-file#b-set-up-your-shell-environment-for-pyenv" target="_blank" rel="noopener noreferrer" style="color: var(--toggle-active); text-decoration: none;">this</a> for setup</p>
 
-          <h3>Slow File Performance</h3>
-          <p>Always work within the Linux filesystem for optimal performance. Avoid accessing Windows files from WSL when possible.</p>
+          <p>Zsh users can do this:</p>
+          <pre><code>echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc</code></pre>
 
-          <h2>Conclusion</h2>
-          <p>
-            Setting up a development environment in WSL provides a powerful, flexible platform for modern software development. With this setup, you'll have access to the vast ecosystem of Linux tools while maintaining the familiarity of Windows.
-          </p>
+          <p>Now you can install a python version using pyenv:</p>
+          <pre><code>pyenv install 3.10.5</code></pre>
 
-          <p>
-            The combination of WSL, VS Code, and modern development tools creates an environment that's both productive and enjoyable to work in. Whether you're developing web applications, working with containers, or building cloud-native solutions, this setup will serve you well.
-          </p>
+          <p>If this throws an error install gcc:</p>
+          <pre><code>sudo apt install -y software-properties-common</code></pre>
+
+          <p>I recommend setting a python version to be the default:</p>
+          <pre><code>pyenv global 3.10.5</code></pre>
+
+          <h2>Install pipenv</h2>
+          <pre><code>python -m pip install pipenv</code></pre>
+
+          <p>To initialize simply run:</p>
+          <pre><code>pipenv install</code></pre>
+
+          <p>Once you have a Pipfile, start installing packages</p>
+
+          <p>Eg:</p>
+          <pre><code>pipenv install tqdm</code></pre>
 
           <div class="blog-tags">
             <span class="tag">WSL</span>
-            <span class="tag">Linux</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Python</span>
             <span class="tag">Development</span>
-            <span class="tag">Windows</span>
-            <span class="tag">Ubuntu</span>
-            <span class="tag">VS Code</span>
+            <span class="tag">SSH</span>
+            <span class="tag">pyenv</span>
+            <span class="tag">pipenv</span>
           </div>
         </div>
       </article>

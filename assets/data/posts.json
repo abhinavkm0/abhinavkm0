@@ -1,7 +1,11 @@
 [
   {
-    "name": "Setting up dev environment in WSL",
-    "url": "Setup_Dev_WSL_01012025.html",
-    "description": "Complete guide to setting up a modern development environment using Windows Subsystem for Linux"
+    "title": "Environment Setup",
+    "url": "Setup_Dev_WSL_01062025.html",
+    "description": "Complete guide to setting up a development environment using WSL, Docker, and Python tools",
+    "date": "2025-01-01",
+    "readTime": "5 min read",
+    "tags": ["WSL", "Docker", "Python", "Development", "SSH", "pyenv", "pipenv"],
+    "coverImage": "../images/wsl2_shell.png"
   }
 ]
