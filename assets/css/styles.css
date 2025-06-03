@@ -244,3 +244,26 @@ footer {
     height: 44px;
   }
 }
+
+/* home icon */
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.home-link:hover {
+  background: linear-gradient(135deg, #9CA3AF, #6B7280);
+  transform: scale(1.1);
+}
+.home-icon {
+  stroke: #ffffff;
+  transition: stroke 0.3s ease;
+}
+.home-link:hover .home-icon {
+  stroke: #E5E7EB;
+}
