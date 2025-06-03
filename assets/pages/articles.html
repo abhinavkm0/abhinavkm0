@@ -38,6 +38,32 @@
       line-height: 1.6;
     }
 
+    .articles-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--toggle-active);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: var(--toggle-bg);
+      transition: all 0.3s ease;
+    }
+
+    .action-link:hover {
+      background: var(--toggle-active);
+      color: white;
+      transform: translateY(-2px);
+    }
+
     .articles-list {
       display: flex;
       flex-direction: column;
@@ -163,6 +189,8 @@
       font-weight: 500;
       transition: all 0.3s ease;
       border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
     }
 
     .tag:hover {
@@ -281,6 +309,11 @@
         align-items: flex-start;
         gap: 0.5rem;
       }
+
+      .articles-actions {
+        flex-direction: column;
+        align-items: center;
+      }
     }
 
     @media (max-width: 480px) {
@@ -326,6 +359,15 @@
         <p class="articles-description">
           Thoughts, tutorials, and insights on software development, tools, and technologies
         </p>
+      </div>
+
+      <div class="articles-actions">
+        <a href="tags.html" class="action-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Browse by Tags
+        </a>
       </div>
 
       <div class="articles-list" id="articlesList">
@@ -379,10 +421,10 @@
               <img src="${article.coverImage}" alt="${article.title}" loading="lazy">
             </div>
             <div class="article-content">
-              <a href="./${article.url}" class="article-title">${article.title}</a>
+              <a href="${article.url}" class="article-title">${article.title}</a>
               <p class="article-description">${article.description}</p>
               <div class="article-tags">
-                ${article.tags.slice(0, 4).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${article.tags.slice(0, 4).map(tag => `<a href="tags.html?tag=${encodeURIComponent(tag)}" class="tag">${tag}</a>`).join('')}
                 ${article.tags.length > 4 ? `<span class="tag">+${article.tags.length - 4}</span>` : ''}
               </div>
               <div class="article-meta">
@@ -427,4 +469,4 @@
   </script>
 </body>
 
-</html>
+</html> 

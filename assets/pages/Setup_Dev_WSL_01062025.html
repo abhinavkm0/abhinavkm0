@@ -12,6 +12,20 @@
   
   <!-- Blog-specific Styles -->
   <link rel="stylesheet" href="../css/blog.css">
+  
+  <style>
+    .blog-tags .tag {
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .blog-tags .tag:hover {
+      background: var(--toggle-active);
+      color: white;
+      transform: translateY(-2px);
+    }
+  </style>
 </head>
 
 <body>
@@ -118,13 +132,13 @@ echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc</code></pre>
           <pre><code>pipenv install tqdm</code></pre>
 
           <div class="blog-tags">
-            <span class="tag">WSL</span>
-            <span class="tag">Docker</span>
-            <span class="tag">Python</span>
-            <span class="tag">Development</span>
-            <span class="tag">SSH</span>
-            <span class="tag">pyenv</span>
-            <span class="tag">pipenv</span>
+            <a href="../tags.html?tag=WSL" class="tag">WSL</a>
+            <a href="../tags.html?tag=Docker" class="tag">Docker</a>
+            <a href="../tags.html?tag=Python" class="tag">Python</a>
+            <a href="../tags.html?tag=Development" class="tag">Development</a>
+            <a href="../tags.html?tag=SSH" class="tag">SSH</a>
+            <a href="../tags.html?tag=pyenv" class="tag">pyenv</a>
+            <a href="../tags.html?tag=pipenv" class="tag">pipenv</a>
           </div>
         </div>
       </article>
