@@ -1,87 +1,83 @@
-  <!DOCTYPE html>
-  <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tags - Abhinav KM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
-    
-    <!-- Shared Styles -->
-    <link rel="stylesheet" href="../css/styles.css">
-    
-    <!-- Tags-specific Styles -->
-    <link rel="stylesheet" href="../css/tags.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tags - Abhinav KM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/tags.css">
+</head>
 
-  </head>
-
-  <body>
-    <header>
-      <div class="header-content">
-        <div class="logo">🥷</div>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-          <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5" />
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-          </svg>
-          <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-        </button>
-      </div>
-    </header>
-
-    <main>
-      <div class="tags-container">
-      <a href="../../" class="home-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="home-icon">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
+<body>
+  <!-- Sticky Header -->
+  <header class="main-header">
+    <nav class="nav-container">
+      <a href="../../" class="nav-brand">
+        <span class="brand-emoji">🥷</span>
       </a>
+      
+      <div class="nav-center">
+        <h1 class="page-title">Tags</h1>
+      </div>
+      
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5" />
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+        </svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+    </nav>
+  </header>
 
-        <div class="tags-header">
-          <h1 class="tags-title">Tags</h1>
-          <p class="tags-description">
-            Explore articles by topics and technologies
-          </p>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="tags-container">
+      <div class="tags-header">
+        <p class="tags-description">
+          Explore articles by topics and technologies
+        </p>
+      </div>
+
+      <div class="filter-controls">
+        <div class="filter-header">
+          <h2 class="filter-title">Selected Filters</h2>
+          <button class="clear-filters" id="clearFilters">Clear All</button>
         </div>
-
-        <div class="filter-controls">
-          <div class="filter-header">
-            <h2 class="filter-title">Selected Filters</h2>
-            <button class="clear-filters" id="clearFilters">Clear All</button>
-          </div>
-          <div class="selected-tags" id="selectedTags">
-            <span class="empty-selection">No tags selected</span>
-          </div>
-        </div>
-
-        <div class="tags-list" id="tagsGrid">
-          <!-- Tags will be loaded here -->
-        </div>
-
-        <div class="filtered-articles" id="filteredArticles" style="display: none;">
-          <h2 class="articles-section-title">
-            Filtered Articles
-            <span class="article-count" id="articleCount">0</span>
-          </h2>
-          <div class="articles-list" id="articlesList">
-            <!-- Filtered articles will appear here -->
-          </div>
+        <div class="selected-tags" id="selectedTags">
+          <span class="empty-selection">No tags selected</span>
         </div>
       </div>
-    </main>
 
-    <footer>
-      <p>Copyright Abhinav KM</p>
-    </footer>
+      <div class="tags-list" id="tagsGrid">
+        <!-- Tags will be loaded here -->
+      </div>
 
-    <!-- Shared Scripts -->
-    <script src="../js/script.js"></script>
-    
-    <!-- Tags-specific Scripts -->
-    <script src="../js/tags.js"></script>
-  </body>
+      <div class="filtered-articles" id="filteredArticles" style="display: none;">
+        <h2 class="articles-section-title">
+          Filtered Articles
+          <span class="article-count" id="articleCount">0</span>
+        </h2>
+        <div class="articles-list" id="articlesList">
+          <!-- Filtered articles will appear here -->
+        </div>
+      </div>
+    </div>
+  </main>
 
-  </html>
+  <!-- Sticky Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Abhinav KM</p>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/tags.js"></script>
+</body>
+
+</html>

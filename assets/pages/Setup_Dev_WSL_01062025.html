@@ -4,152 +4,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Setting up dev environment in WSL - Abhinav KM</title>
+  <title>Environment Setup - Abhinav KM</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
-  
-  <!-- Shared Styles -->
   <link rel="stylesheet" href="../css/styles.css">
-  
-  <!-- Blog-specific Styles -->
   <link rel="stylesheet" href="../css/blog.css">
-  
-  <style>
-    .blog-tags .tag {
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    
-    .blog-tags .tag:hover {
-      background: var(--toggle-active);
-      color: white;
-      transform: translateY(-2px);
-    }
-  </style>
 </head>
 
 <body>
-  <header>
-    <div class="header-content">
-      <div class="logo">🥷</div>
+  <!-- Sticky Header -->
+  <header class="main-header">
+    <nav class="nav-container">
+      <a href="../../" class="nav-brand">
+        <span class="brand-emoji">🥷</span>
+      </a>
+      
+      <div class="nav-center">
+        <a href="articles.html" class="back-to-articles">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Articles
+        </a>
+      </div>
+      
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5" />
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
-        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </button>
-    </div>
+    </nav>
   </header>
 
-  <main>
-    <div class="blog-container">
-    <a href="../../" class="home-link">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="home-icon">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    </a>
+  <!-- Main Content -->
+  <main class="main-content">
+    <article class="blog-container">
+      <!-- Article Header -->
+      <header class="blog-header">
+        <div class="blog-meta">
+          <time class="blog-date" datetime="2025-01-01">January 1, 2025</time>
+          <span class="blog-read-time">5 min read</span>
+        </div>
+        
+        <h1 class="blog-title">Setting up Development Environment in WSL</h1>
+        
+        <p class="blog-lead">
+          Complete guide to setting up a robust development environment using WSL, Docker, and Python tools for modern software development.
+        </p>
+        
+        <div class="blog-tags">
+          <a href="tags.html?tag=WSL" class="tag">WSL</a>
+          <a href="tags.html?tag=Docker" class="tag">Docker</a>
+          <a href="tags.html?tag=Python" class="tag">Python</a>
+          <a href="tags.html?tag=Development" class="tag">Development</a>
+        </div>
+      </header>
 
-      <article>
-        <header class="blog-header">
-          <h1 class="blog-title">Environment Setup</h1>
-          <div class="blog-meta">
-            <span>📅 January 1, 2025</span>
-            <span>⏱️ 5 min read</span>
-            <span>👤 Abhinav KM</span>
-          </div>
-          <p class="blog-description">
-            Complete guide to setting up a development environment using WSL, Docker, and Python tools
-          </p>
-        </header>
+      <!-- Article Content -->
+      <div class="blog-content">
+        <p class="intro-paragraph">
+          We will be working inside WSL for our development environment. This setup provides a robust Linux environment on Windows with all the tools we need for modern development.
+        </p>
 
-        <div class="blog-content">
-          <p>
-            We will be working inside WSL for our development environment. This setup provides a robust Linux environment on Windows with all the tools we need for modern development.
-          </p>
+        <h2>Getting Started with WSL</h2>
+        <p>First, install WSL:</p>
+        <pre><code>wsl --install</code></pre>
 
-          <p>First, install WSL:</p>
-          <pre><code>wsl --install</code></pre>
+        <p>Install the Ubuntu distro:</p>
+        <pre><code>wsl --install -d Ubuntu</code></pre>
 
-          <p>Install the Ubuntu distro:</p>
-          <pre><code>wsl --install -d Ubuntu</code></pre>
+        <p>Set the default version to WSL2:</p>
+        <pre><code>wsl --set-default-version 2</code></pre>
 
-          <p>Set the default version to WSL2:</p>
-          <pre><code>wsl --set-default-version 2</code></pre>
+        <h2>WSL2 Environment</h2>
+        <p>Now you can enter WSL to open a shell. This gives you access to a full Linux environment within Windows:</p>
+        
+        <div class="image-container">
+          <img src="../images/wsl2_shell.png" alt="WSL2 Shell Interface" class="blog-image">
+          <figcaption>WSL2 shell providing a native Linux experience</figcaption>
+        </div>
 
-          <h2>WSL2</h2>
-          <p>Now you can enter WSL to open a shell:</p>
-          
-          <img src="../images/wsl2_shell.png" alt="WSL2 Shell" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
+        <h2>Docker Desktop Integration</h2>
+        <p>Download and install <a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer">Docker Desktop</a> for containerized development.</p>
 
-          <h2>Docker Desktop</h2>
-          <p>Download and install <a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer" style="color: var(--toggle-active); text-decoration: none;">Docker Desktop</a></p>
+        <p>Enable WSL2 integration in Docker Desktop settings:</p>
+        <div class="image-container">
+          <img src="../images/docker_wsl2.png" alt="Docker WSL2 Integration Settings" class="blog-image">
+          <figcaption>Enabling WSL2 integration in Docker Desktop</figcaption>
+        </div>
 
-          <p>Now, enable WSL2 integration:</p>
-          <img src="../images/docker_wsl2.png" alt="Docker WSL2 Integration" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
+        <h2>SSH Key Configuration</h2>
+        <p>Create an SSH key for secure Git operations:</p>
+        <pre><code>ssh-keygen -t rsa -b 4096 -C "email@thoughtminds.io"</code></pre>
 
-          <h2>Create SSH Key</h2>
-          <p>Create an SSH Key:</p>
-          <pre><code>ssh-keygen -t rsa -b 4096 -C "email@thoughtminds.io"</code></pre>
+        <p>Add the key to your SSH agent:</p>
+        <pre><code>ssh-add ~/.ssh/file_name</code></pre>
 
-          <p>Add to identity:</p>
-          <pre><code>ssh-add ~/.ssh/file_name</code></pre>
+        <p>Copy the contents of your <code>.pub</code> file to GitHub SSH Keys:</p>
+        <div class="image-container">
+          <img src="../images/ssh_key.png" alt="GitHub SSH Key Configuration" class="blog-image">
+          <figcaption>Adding SSH key to GitHub for secure authentication</figcaption>
+        </div>
 
-          <p>Now copy contents of the <code>.pub</code> file to GitHub SSH Keys:</p>
-          <img src="../images/ssh_key.png" alt="SSH Key Setup" style="max-width: 100%; height: auto; border-radius: 8px; margin: 1rem 0; border: 1px solid var(--border-color);">
+        <h2>Python Environment with pyenv</h2>
+        <p>Install pyenv for Python version management:</p>
+        <pre><code>curl -fsSL https://pyenv.run | bash</code></pre>
 
-          <h2>Install pyenv</h2>
-          <pre><code>curl -fsSL https://pyenv.run | bash</code></pre>
+        <div class="callout">
+          <p><strong>Note:</strong> Refer to the <a href="https://github.com/pyenv/pyenv?tab=readme-ov-file#b-set-up-your-shell-environment-for-pyenv" target="_blank" rel="noopener noreferrer">official pyenv documentation</a> for detailed setup instructions.</p>
+        </div>
 
-          <p>Refer <a href="https://github.com/pyenv/pyenv?tab=readme-ov-file#b-set-up-your-shell-environment-for-pyenv" target="_blank" rel="noopener noreferrer" style="color: var(--toggle-active); text-decoration: none;">this</a> for setup</p>
-
-          <p>Zsh users can do this:</p>
-          <pre><code>echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+        <p>For Zsh users, add these lines to your <code>~/.zshrc</code>:</p>
+        <pre><code>echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc</code></pre>
 
-          <p>Now you can install a python version using pyenv:</p>
-          <pre><code>pyenv install 3.10.5</code></pre>
+        <p>Install a Python version:</p>
+        <pre><code>pyenv install 3.10.5</code></pre>
 
-          <p>If this throws an error install gcc:</p>
+        <div class="callout warning">
+          <p><strong>Troubleshooting:</strong> If you encounter compilation errors, install the required build dependencies:</p>
           <pre><code>sudo apt install -y software-properties-common</code></pre>
-
-          <p>I recommend setting a python version to be the default:</p>
-          <pre><code>pyenv global 3.10.5</code></pre>
-
-          <h2>Install pipenv</h2>
-          <pre><code>python -m pip install pipenv</code></pre>
-
-          <p>To initialize simply run:</p>
-          <pre><code>pipenv install</code></pre>
-
-          <p>Once you have a Pipfile, start installing packages</p>
-
-          <p>Eg:</p>
-          <pre><code>pipenv install tqdm</code></pre>
-
-          <div class="blog-tags">
-            <a href="../tags.html?tag=WSL" class="tag">WSL</a>
-            <a href="../tags.html?tag=Docker" class="tag">Docker</a>
-            <a href="../tags.html?tag=Python" class="tag">Python</a>
-            <a href="../tags.html?tag=Development" class="tag">Development</a>
-            <a href="../tags.html?tag=SSH" class="tag">SSH</a>
-            <a href="../tags.html?tag=pyenv" class="tag">pyenv</a>
-            <a href="../tags.html?tag=pipenv" class="tag">pipenv</a>
-          </div>
         </div>
-      </article>
-    </div>
+
+        <p>Set a global Python version:</p>
+        <pre><code>pyenv global 3.10.5</code></pre>
+
+        <h2>Package Management with pipenv</h2>
+        <p>Install pipenv for virtual environment and dependency management:</p>
+        <pre><code>python -m pip install pipenv</code></pre>
+
+        <p>Initialize a new project:</p>
+        <pre><code>pipenv install</code></pre>
+
+        <p>Install packages in your virtual environment:</p>
+        <pre><code>pipenv install tqdm</code></pre>
+
+        <h2>Conclusion</h2>
+        <p>
+          This setup provides a powerful, isolated development environment that combines the best of Windows and Linux. 
+          With WSL2, Docker, and proper Python tooling, you'll have everything needed for modern software development.
+        </p>
+      </div>
+    </article>
   </main>
 
-  <footer>
-    <p>Copyright Abhinav KM</p>
+  <!-- Sticky Footer -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Abhinav KM</p>
+    </div>
   </footer>
 
-  <!-- Shared Scripts -->
   <script src="../js/script.js"></script>
 </body>
 
